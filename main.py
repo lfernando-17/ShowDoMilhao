@@ -70,6 +70,7 @@ class Question(object):
         b = random.randint(0,3)
         c = random.randint(0,3)
         cartas = ['Rei','Ás','2','3']
+        random.shuffle(cartas)
         if ajuda.lower() =='placas' and dicas_gastas[0]!=0:
             print(f'{self.resp} {letras[a]} {self.resp} {letras[b]} \n{letras[a]} {self.resp} {letras[b]} {letras[c]}')
             dicas_gastas[0] = 0
@@ -84,7 +85,6 @@ class Question(object):
             if num > 4 or num < 1 :
                 print('Tente Novamente')
                 self.dica()
-            random.shuffle(cartas)
             if cartas[num-1] == '2' :
                 print(f'\nVocê recebeu a carta :  {cartas[num-1]}')
                 for letra in range(0,2) :
@@ -95,7 +95,7 @@ class Question(object):
                     print(f'Não é : {options[letra]}')
             elif cartas[num-1]=='Ás':
                 print(f'\nVocê recebeu a carta :  {cartas[num-1]}')
-                print(f'Não é : {options[letra]}')
+                print(f'Não é : {options[a]}')
             elif cartas[num-1]=='Rei':
                 print(f'\nVocê recebeu a carta :  {cartas[num-1]}')
             else :
