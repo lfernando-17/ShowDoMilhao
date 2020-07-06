@@ -4,7 +4,7 @@ import random
 import emoji
 import time
 dinheiros = [['R$ 1 mil','R$ 0','R$ 0'] ,['R$ 2 mil','R$ 1 mil','R$ 500'],['R$ 3 mil','R$ 2 mil','R$ 1 mil'],['R$ 4 mil','R$ 3 mil','R$ 1.500'],['R$ 5 mil','R$ 4 mil','R$ 2 mil'],['R$ 10 mil','R$ 5 mil','R$ 2.500'],['R$ 20 mil','R$ 10 mil','R$ 5 mil'],['R$ 30 mil','R$ 20 mil','R$ 10 mil'],['R$ 40 mil','R$ 30 mil','R$ 15 mil'],['R$ 50 mil','R$ 40 mil','R$ 20 mil'],['R$ 100 mil','R$ 50 mil','R$ 25 mil'],['R$ 200 mil','R$ 100 mil','R$ 50 mil'],['R$ 300 mil','R$ 200 mil','R$ 100 mil'],['R$ 400 mil','R$ 300 mil','R$ 150 mil'],['R$ 500 mil','R$ 400 mil','R$ 200 mil'],['R$ 1 milhão','R$ 500 mil','R$ 0']]
-#Ordem : Okacas , Cartas , Convidados
+#Ordem : Placas , Cartas , Convidados
 dicas_gastas=[1,1,1]
 class Question(object):
     
@@ -32,7 +32,7 @@ class Question(object):
         else :
             self.errou()  
     def errou (self):
-        print('\nResposta Errada \nVocê ficou com {dinheiros[self.rodada][2]} reais')
+        print(f'\nResposta Errada \nVocê ficou com {dinheiros[self.rodada][2]} reais')
         time.sleep(2)
         sys.exit()
     def parar(self):
@@ -57,9 +57,9 @@ class Question(object):
         letras = ['a','b','c','d']
         options = letras
         options.remove(self.resp)
-        a = random.randint(0,4)
-        b = random.randint(0,4)
-        c = random.randint(0,4)
+        a = random.randint(0,3)
+        b = random.randint(0,3)
+        c = random.randint(0,3)
         cartas = ['Rei','Ás','2','3']
         if ajuda =='Placas' and dicas_gastas[0]!=0:
             print(f'{self.resp} {letras[a]} {self.resp} {letras[b]} \n{letras[a]} {self.resp} {letras[b]} {letras[c]}')
@@ -71,21 +71,24 @@ class Question(object):
             print(emoji.emojize(':diamonds:',use_aliases=True),end=' ')
             print(emoji.emojize(':diamonds:',use_aliases=True),end=' ')
             print(emoji.emojize(':diamonds:',use_aliases=True))
-            num = int(input('\nEscolha a posição da carta 1 a 4 : '))
+            num = int(input('\nEscolha entre 1 a 4 : '))
+            if num > 4 or num < 1 :
+                print('Tente Novamente')
+                self.dica()
             random.shuffle(cartas)
-            if cartas[num] == '2' :
-                print(f'\nVocê recebeu a carta :  {cartas[num]}')
+            if cartas[num-1] == '2' :
+                print(f'\nVocê recebeu a carta :  {cartas[num-1]}')
                 for letra in range(0,2) :
                     print(f'Não é : {options[letra]}')
-            elif cartas[num] == '3' :
-                print(f'\nVocê recebeu a carta :  {cartas[num]}')
+            elif cartas[num-1] == '3' :
+                print(f'\nVocê recebeu a carta :  {cartas[num-1]}')
                 for letra in range(0,3) :
                     print(f'Não é : {options[letra]}')
-            elif cartas[num]=='Ás':
-                print(f'\nVocê recebeu a carta :  {cartas[num]}')
+            elif cartas[num-1]=='Ás':
+                print(f'\nVocê recebeu a carta :  {cartas[num-1]}')
                 print(f'Não é : {options[letra]}')
-            elif cartas[num]=='Rei':
-                print(f'\nVocê recebeu a carta :  {cartas[num]}')
+            elif cartas[num-1]=='Rei':
+                print(f'\nVocê recebeu a carta :  {cartas[num-1]}')
             else :
                 print('Tente Novamente')
                 self.dica()
@@ -133,19 +136,3 @@ for perg in range(0,len(Perguntas)-1):
     um = Question(Perguntas[perg],respostas[perg],perg)
     um.opçoes()
     um.açao()
-
-
-
-
-
-
-
-
-
-
-'''
-start = time.time()
-print("hello")
-end = time.time()
-print(end - start)
-'''
