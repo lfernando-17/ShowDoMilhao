@@ -3,6 +3,8 @@ import time
 import random
 import emoji
 import time
+import ansicon
+ansicon.load()
 dinheiros = [['R$ 1 mil','R$ 0','R$ 0'] ,['R$ 2 mil','R$ 1 mil','R$ 500'],['R$ 3 mil','R$ 2 mil','R$ 1 mil'],['R$ 4 mil','R$ 3 mil','R$ 1.500'],['R$ 5 mil','R$ 4 mil','R$ 2 mil'],['R$ 10 mil','R$ 5 mil','R$ 2.500'],['R$ 20 mil','R$ 10 mil','R$ 5 mil'],['R$ 30 mil','R$ 20 mil','R$ 10 mil'],['R$ 40 mil','R$ 30 mil','R$ 15 mil'],['R$ 50 mil','R$ 40 mil','R$ 20 mil'],['R$ 100 mil','R$ 50 mil','R$ 25 mil'],['R$ 200 mil','R$ 100 mil','R$ 50 mil'],['R$ 300 mil','R$ 200 mil','R$ 100 mil'],['R$ 400 mil','R$ 300 mil','R$ 150 mil'],['R$ 500 mil','R$ 400 mil','R$ 200 mil'],['R$ 1 milhão','R$ 500 mil','R$ 0']]
 #Ordem : Placas , Cartas , Convidados
 dicas_gastas=[1,1,1]
@@ -12,23 +14,28 @@ class Question(object):
         self.rodada = rodada
         self.pergunta = pergunta
         self.resp = resp
+        print()
+        print('='*int((len(self.pergunta))/2),end=' ')
         print(self.pergunta)
+        print('='*int((len(self.pergunta))/2))
 
     def açao(self):
+        print('\n'*2)
         action = input('\nDeseja Responder , Parar ou Dica? ')
-        if action == 'Responder':
+        if action.lower() == 'responder':
             self.resposta()
-        elif action=='Parar' :
+        elif action.lower()=='parar' :
             self.parar()
-        elif action=='Dica' :
+        elif action.lower()=='dica' :
             self.dica()
         else :
             print('\nTente Novamente')
             self.açao()
     def resposta(self):
         answer = input('\nDigite a resposta : ')
-        if answer==self.resp:
+        if answer.lower()==self.resp:
             print(f'\nResposta certa \nVocê está com {dinheiros[self.rodada][0]} reais')
+            print('\n'*20)
         else :
             self.errou()  
     def errou (self):
@@ -41,11 +48,13 @@ class Question(object):
         sys.exit()
         
     def opçoes(self):
-        print(f'\nAcertar : {dinheiros[self.rodada][0]}')
-        print(f'Parar : {dinheiros[self.rodada][1]}')
-        print(f'Errar : {dinheiros[self.rodada][2]}')
-        
+        ansicon.load()
+        print(f'\033[1;32m\nAcertar : {dinheiros[self.rodada][0]}')
+        print(f'\033[1;31mParar : {dinheiros[self.rodada][1]}')
+        print(f'\033[1;31mErrar : {dinheiros[self.rodada][2]}')
+        ansicon.unload()        
     def dica(self):
+        print('\n'*3)
         print('Escolha entre : ')
         if dicas_gastas[0]!=0 :
              print('\nPlacas')
@@ -61,11 +70,11 @@ class Question(object):
         b = random.randint(0,3)
         c = random.randint(0,3)
         cartas = ['Rei','Ás','2','3']
-        if ajuda =='Placas' and dicas_gastas[0]!=0:
+        if ajuda.lower() =='placas' and dicas_gastas[0]!=0:
             print(f'{self.resp} {letras[a]} {self.resp} {letras[b]} \n{letras[a]} {self.resp} {letras[b]} {letras[c]}')
             dicas_gastas[0] = 0
             self.açao()
-        elif ajuda=='Cartas' and dicas_gastas[1]!=0:
+        elif ajuda.lower()=='cartas' and dicas_gastas[1]!=0:
             print()
             print(emoji.emojize(':diamonds:',use_aliases=True),end=' ')
             print(emoji.emojize(':diamonds:',use_aliases=True),end=' ')
@@ -94,8 +103,9 @@ class Question(object):
                 self.dica()
             dicas_gastas[1] = 0
             self.açao()
-        elif ajuda=='Convidados' and dicas_gastas[2]!=0 :
-            print(f'{self.resp} {letras[a]} {self.resp} {letras[b]} \n{letras[a]} {self.resp} {letras[b]} {letras[c]}')
+        elif ajuda.lower()=='convidados' and dicas_gastas[2]!=0 :
+            letter=['a','b','c','d']
+            print(f'{self.resp} {letter[a]} {self.resp} {letter[b]} \n{letter[a]} {self.resp} {letter[b]} {letter[c]}')
             dicas_gastas[2] = 0
             self.açao()
         else :
@@ -106,11 +116,12 @@ class Question(object):
         # cartas 4 opçoes 
               
 
-print('='*38)
-print(emoji.emojize(':moneybag:',use_aliases=True),end=' ')
-print('Seja bem vindo ao Show do Milhão',end=' ')
-print(emoji.emojize(':moneybag:',use_aliases=True))
-print('='*38)
+print('\033[1;35m='*38)
+print('\033[1;35m==',end=' ')
+print('\033[1;33mSeja bem vindo ao Show do Milhão',end=' ')
+print('\033[1;35m==')
+print('\033[1;35m='*38)
+ansicon.unload()
 
 Perguntas = [
              '\nQual o símbolo do quilômetro? \n\n A - qm \n B - km \n C - kg/m3 \n D - kg ' ,
@@ -132,7 +143,9 @@ Perguntas = [
              ]
 
 respostas=['b','d','b','a','c','a','c','c','b','b','d','c','a','d','b','a']
-for perg in range(0,len(Perguntas)-1):
+for perg in range(0,len(Perguntas)):
     um = Question(Perguntas[perg],respostas[perg],perg)
     um.opçoes()
     um.açao()
+
+
