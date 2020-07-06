@@ -9,3 +9,5 @@ Para fazer isso basta colar essa linha de comando em seu terminal :
 $ pip install emoji --upgrade
 
 $ pip install ansicon
+
+Vídeo sobre o Jogo : https://youtu.be/-GcBiRLO3Lc
