@@ -105,7 +105,7 @@ class Question(object):
             self.açao()
         elif ajuda.lower()=='convidados' and dicas_gastas[2]!=0 :
             letter=['a','b','c','d']
-            print(f'{self.resp} {letter[a]} {self.resp} {letter[b]} \n{letter[a]} {self.resp} {letter[b]} {letter[c]}')
+            print(f'{self.resp} {letter[a]} {self.resp} {letter[b]}')
             dicas_gastas[2] = 0
             self.açao()
         else :
