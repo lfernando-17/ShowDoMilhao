@@ -1,6 +1,6 @@
 # ShowDoMilhao
 
-Pequeno Jogo inspirado no Show do Milhão , em python , sendo case sensitive
+Pequeno Jogo inspirado no Show do Milhão , em python .
 
 Obs : Necessário baixar a lib emoji e ansicon
 
